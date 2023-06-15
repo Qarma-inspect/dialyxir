@@ -34,18 +34,30 @@ defmodule Dialyxir.Warnings.CallbackTypeMismatch do
   @spec format_long([String.t() | non_neg_integer]) :: String.t()
   def format_long([behaviour, function, arity, fail_type, success_type]) do
     pretty_behaviour = Erlex.pretty_print(behaviour)
-    pretty_fail_type = Erlex.pretty_print_type(fail_type)
-    pretty_success_type = Erlex.pretty_print_type(success_type)
+    pretty_fail_type = Erlex.shallow_pretty_print_type(fail_type)
+    pretty_success_type = Erlex.shallow_pretty_print_type(success_type)
 
-    """
-    Type mismatch for @callback #{function}/#{arity} in #{pretty_behaviour} behaviour.
+    diff = Erlex.pretty_print_diff(success_type, fail_type)
 
-    Expected type:
-    #{pretty_success_type}
+    if pretty_success_type == pretty_fail_type do
+      """
+      Type mismatch for @callback #{function}/#{arity} in #{pretty_behaviour} behaviour.
 
-    Actual type:
-    #{pretty_fail_type}
-    """
+      Expected type:
+      #{pretty_success_type}
+      #{diff}
+      """
+    else
+      """
+      Type mismatch for @callback #{function}/#{arity} in #{pretty_behaviour} behaviour.
+
+      Expected type:
+      #{pretty_success_type}
+
+      Actual type:
+      #{pretty_fail_type}
+      """
+    end
   end
 
   @impl Dialyxir.Warning
