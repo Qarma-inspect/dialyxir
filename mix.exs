@@ -47,7 +47,7 @@ defmodule Dialyxir.Mixfile do
 
   defp deps do
     [
-      {:erlex, ">= 0.2.6"},
+      {:erlex, git: "https://github.com/Qarma-inspect/erlex.git", branch: "nested-types-messages"},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
