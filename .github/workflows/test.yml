@@ -37,18 +37,32 @@ jobs:
         - '1.12.3'
         - '1.13.4'
         - '1.14.3'
+        - '1.15.7'
         otp:
         - '23.3'
         - '24.3'
         - '25.3'
+        - '26.1'
 
         exclude:
           - elixir: '1.12.3'
             otp: '25.3'
 
+          - elixir: '1.12.3'
+            otp: '26.1'
+
+          - elixir: '1.13.4'
+            otp: '26.1'
+
+          - elixir: '1.14.3'
+            otp: '26.1'
+
+          - elixir: '1.15.7'
+            otp: '23.3'
+
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Elixir
       uses: erlef/setup-beam@v1
@@ -57,7 +71,7 @@ jobs:
         otp-version: ${{ matrix.otp }}
 
     - name: Restore deps cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           deps
@@ -87,7 +101,7 @@ jobs:
         MIX_ENV: prod
 
     - name: Check source code formatting
-      if: ${{ matrix.elixir > '1.12.0' }}
+      if: ${{ matrix.elixir > '1.15.0' }}
       run: mix format --check-formatted
 
     - name: Get results in short format
@@ -116,6 +130,6 @@ jobs:
         OUTPUT_TESTS: true
 
     - name: Check examples
-      run: mix dialyzer --format short --ignore-exit-status
+      run: mix compile 2> /dev/null  && mix dialyzer --format short --ignore-exit-status
       env:
         MIX_ENV: examples

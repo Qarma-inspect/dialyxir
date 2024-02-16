@@ -4,7 +4,37 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## Unreleased changes post [1.3.0]
+Versions follow [Semantic Versioning 2.0](https://semver.org/spec/v2.0.0.html)
+
+## Unreleased changes post [1.4.4]
+
+## [1.4.3] - 2023-12-28
+  ### Fixed
+  - Warnings with line & column.
+  - Formatting of `:record_match` warning.
+
+## [1.4.2] - 2023-10-21
+
+  ### Changed
+  - Revert minimum required Elixir version back to 1.6.
+  - Improved performance in calculating Umbrella dependencies.
+
+## [1.4.1] - 2023-08-30
+
+  ### Changed
+  - Bump minimum required Elixir version to 1.12.
+
+## [1.4.0] - 2023-08-27
+
+### Added
+  - --quiet-with-result flag.
+
+### Changed
+  - (docs) Improved caching behaviour in example templates.
+
+### Fixed
+  - Erroneous "DEPENDENCY MISSING" message in Elixir 1.15.
+  - Handle transitive optional dependencies in Elixir 1.15.
 
 ## [1.3.0] - 2023-04-08
 
